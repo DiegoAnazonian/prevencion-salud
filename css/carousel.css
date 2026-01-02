@@ -1,0 +1,99 @@
+/* ========================================
+   CAROUSEL - Sanatorios
+   ======================================== */
+
+.carousel-container {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.carousel {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  flex: 0 0 calc(25% - 15px);
+  min-width: 0;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(223, 0, 114, 0.9);
+  color: white;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn:hover {
+  background: rgba(223, 0, 114, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn-prev {
+  left: 0;
+}
+
+.carousel-btn-next {
+  right: 0;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-btn:disabled:hover {
+  transform: translateY(-50%) scale(1);
+}
+
+/* Responsive Carousel */
+@media (max-width: 1024px) {
+  .carousel-item {
+    flex: 0 0 calc(33.333% - 14px);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    flex: 0 0 calc(50% - 10px);
+  }
+
+  .carousel-container {
+    padding: 0 50px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    flex: 0 0 100%;
+  }
+
+  .carousel-container {
+    padding: 0 40px;
+  }
+}

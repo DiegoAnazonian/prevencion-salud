@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prevención Salud - Precios, cartillas y prestaciones</title>
+  <meta name="description" content="Conocé planes de Prevención Salud. Asesoramiento gratuito sobre precios, cartilla de 15 sanatorios y prestaciones. Planes A1, A2, A4, A5. 25% descuento web.">
+  <meta name="keywords" content="prevención salud, prepaga médica, planes salud, cartilla médica, sanatorios">
+
+  <!-- Open Graph para redes sociales -->
+  <meta property="og:title" content="Prevención Salud - Precios, cartillas y prestaciones">
+  <meta property="og:description" content="Conocé planes. Asesoramiento gratuito sobre precios, cartilla y prestaciones">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts - Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/carousel.css">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      'send_page_view': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+</head>
+<body>
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="images/logo.svg" alt="Prevención Salud Logo" class="logo-img">
+        </div>
+        <nav class="nav">
+          <a href="#sanatorios" class="nav-link">Sanatorios</a>
+          <a href="#prestaciones" class="nav-link">Prestaciones</a>
+          <a href="#planes" class="nav-link">Planes</a>
+          <a href="#contacto" class="nav-link">Contacto</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION con Formulario -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+
+        <!-- FORMULARIO A LA IZQUIERDA -->
+        <div class="hero-form">
+          <div class="form-card-hero">
+
+            <!-- TABS -->
+            <div class="form-tabs">
+              <button class="tab-btn active" data-tab="particular" onclick="switchTab('particular')">
+                Particular
+              </button>
+              <button class="tab-btn" data-tab="empresa" onclick="switchTab('empresa')">
+                Empresa
+              </button>
+            </div>
+
+            <!-- FORMULARIO PARTICULAR -->
+            <form id="form-particular" class="tab-content active" action="send.php" method="POST" novalidate>
+              <input type="hidden" name="tipo" value="particular">
+
+              <div class="form-group">
+                <label for="nombre">Nombre y Apellido *</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="Juan Pérez"
+                  required
+                  minlength="3"
+                  data-error="Por favor ingresá tu nombre completo"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="residencia">¿Dónde vivís? *</label>
+                <input
+                  type="text"
+                  id="residencia"
+                  name="residencia"
+                  placeholder="Localidad"
+                  required
+                  data-error="Por favor ingresá tu localidad"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="telefono">Teléfono *</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  placeholder="11 1234-5678"
+                  required
+                  data-error="Por favor ingresá un teléfono válido"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="edad">Edad *</label>
+                <input
+                  type="number"
+                  id="edad"
+                  name="edad"
+                  placeholder="35"
+                  required
+                  min="18"
+                  max="59"
+                  data-error="Edad debe estar entre 18 y 59 años"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="perfil">Situación laboral *</label>
+                <select id="perfil" name="perfil" required data-error="Por favor seleccioná tu perfil">
+                  <option value="">Seleccioná tu situación</option>
+                  <option value="autonomo">Autónomo / Particular</option>
+                  <option value="relacion">Relación de dependencia</option>
+                  <option value="monotributista">Monotributista</option>
+                </select>
+                <span class="error-message"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                Solicitar Cotización
+              </button>
+            </form>
+
+            <!-- FORMULARIO EMPRESA -->
+            <form id="form-empresa" class="tab-content" action="send.php" method="POST" novalidate>
+              <input type="hidden" name="tipo" value="empresa">
+
+              <div class="form-group">
+                <label for="empresa">Nombre de la Empresa *</label>
+                <input
+                  type="text"
+                  id="empresa"
+                  name="empresa"
+                  placeholder="Mi Empresa S.A."
+                  required
+                  minlength="3"
+                  data-error="Por favor ingresá el nombre de la empresa"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="contacto">Persona de Contacto *</label>
+                <input
+                  type="text"
+                  id="contacto"
+                  name="contacto"
+                  placeholder="Juan Pérez"
+                  required
+                  minlength="3"
+                  data-error="Por favor ingresá el nombre de contacto"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="email-empresa">Email *</label>
+                <input
+                  type="email"
+                  id="email-empresa"
+                  name="email"
+                  placeholder="contacto@empresa.com"
+                  required
+                  data-error="Por favor ingresá un email válido"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="telefono-empresa">Teléfono *</label>
+                <input
+                  type="tel"
+                  id="telefono-empresa"
+                  name="telefono"
+                  placeholder="11 1234-5678"
+                  required
+                  data-error="Por favor ingresá un teléfono válido"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="empleados">Cantidad de Empleados *</label>
+                <input
+                  type="number"
+                  id="empleados"
+                  name="empleados"
+                  placeholder="10"
+                  required
+                  min="1"
+                  data-error="Por favor ingresá la cantidad de empleados"
+                >
+                <span class="error-message"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                Solicitar Cotización
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+        <!-- TEXTO A LA DERECHA -->
+        <div class="hero-text">
+          <h1 class="hero-title">Tu salud, nuestra prioridad</h1>
+          <p class="hero-subtitle">La mejor cobertura al mejor precio</p>
+          <p class="hero-discount">Encontrá el plan ideal para vos</p>
+          <div class="hero-badges">
+            <div class="hero-badge hero-badge-primary">
+              <span class="badge-icon">✓</span>
+              <span class="badge-text">Cobertura en +20 Sanatorios Premium</span>
+            </div>
+            <div class="hero-badge hero-badge-secondary">
+              <span class="badge-icon">🎯</span>
+              <span class="badge-text">Asesoramiento Gratuito y Personalizado</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SANATORIOS SECTION con Carrusel -->
+  <section id="sanatorios" class="sanatorios">
+    <div class="container">
+      <h2 class="section-title">Sanatorios de la Cartilla</h2>
+      <p class="section-subtitle">Accedé a los mejores centros médicos del país</p>
+
+      <div class="carousel-container">
+        <button class="carousel-btn carousel-btn-prev" aria-label="Anterior">‹</button>
+        <div class="carousel">
+          <div class="carousel-track">
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Del Sol')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/del-sol.webp" alt="Sanatorio Del Sol" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio San Camilo')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/san-camilo.webp" alt="Sanatorio San Camilo" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Clínica Santa Isabel')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/santa-isabel.webp" alt="Clínica Santa Isabel" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('ICBA')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/icba.webp" alt="ICBA - Instituto Cardiovascular" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Hospital Italiano')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/hospital-italiano.webp" alt="Hospital Italiano" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Finochietto')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/finochietto.webp" alt="Sanatorio Finochietto" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('CEMIC')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/cemic.webp" alt="CEMIC" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Bazterrica')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/bazterrica.webp" alt="Sanatorio Bazterrica" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Hospital Austral')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/austral.webp" alt="Hospital Austral" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Mater Dei')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/mater-dei.webp" alt="Sanatorio Mater Dei" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Hospital Británico')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/hospital-britanico.webp" alt="Hospital Británico" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Hospital Alemán')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/hospital-aleman.webp" alt="Hospital Alemán" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Otamendi')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/otamendi.webp" alt="Sanatorio Otamendi" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Hospital Modelo de Quilmes')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/modelo-quilmes.webp" alt="Hospital Modelo de Quilmes" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Fundación Favaloro')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/fundacionfavaloro.webp" alt="Fundación Favaloro" class="sanatorio-logo">
+              </div>
+            </div>
+            <!-- Nuevos sanatorios -->
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Las Lomas')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/las-lomas.svg" alt="Sanatorio Las Lomas" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Guemes')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/guemes.svg" alt="Sanatorio Guemes" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio Anchorena')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/anchorena.svg" alt="Sanatorio Anchorena" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Fundación Hospitalaria')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/fundacion-hospitalaria.svg" alt="Fundación Hospitalaria" class="sanatorio-logo">
+              </div>
+            </div>
+            <div class="carousel-item" onclick="trackSanatorio('Sanatorio San Lucas')">
+              <div class="sanatorio-card">
+                <img src="images/sanatorios/san-lucas.svg" alt="Sanatorio San Lucas" class="sanatorio-logo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-btn carousel-btn-next" aria-label="Siguiente">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESTACIONES SECTION - 6 Beneficios -->
+  <section id="prestaciones" class="prestaciones">
+    <div class="container">
+      <h2 class="section-title">Prestaciones Destacadas</h2>
+      <div class="prestaciones-grid">
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">🏥</div>
+          <h3>Cobertura Médica Integral</h3>
+          <p>Consultas, prácticas e internación 100% cubiertas</p>
+        </div>
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">🏨</div>
+          <h3>Red de Prestadores más Grande</h3>
+          <p>15+ sanatorios, médicos y centros de diagnóstico</p>
+        </div>
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">💻</div>
+          <h3>Consulta por Videollamada</h3>
+          <p>Especialistas disponibles 24/7 online</p>
+        </div>
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">🦷</div>
+          <h3>Odontología General 100%</h3>
+          <p>Consultas y tratamientos sin límites</p>
+        </div>
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">🚑</div>
+          <h3>Emergencias 24 hs</h3>
+          <p>Atención domiciliaria inmediata</p>
+        </div>
+
+        <div class="prestacion-card">
+          <div class="prestacion-icon">📱</div>
+          <h3>Gestiones Online</h3>
+          <p>Autorizaciones, facturación y credencial digital</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANES SECTION - 4 Planes (A1, A2, A4, A5) -->
+  <section id="planes" class="planes">
+    <div class="container">
+      <h2 class="section-title">¿Qué cubre Prevención Salud?</h2>
+      <p class="section-subtitle">Elegí el plan que mejor se adapte a vos</p>
+
+      <div class="planes-grid">
+
+        <!-- Plan A1 -->
+        <div class="plan-card plan-a1" onclick="trackPlanView('A1')" data-plan="A1">
+          <div class="plan-header">
+            <h3 class="plan-name">Plan A1</h3>
+            <div class="plan-badge">Esencial</div>
+          </div>
+          <div class="plan-features">
+            <div class="feature">✓ Cobertura médica sin límites</div>
+            <div class="feature">✓ 25 sesiones kinesiología</div>
+            <div class="feature">✓ Odontología general sin límite</div>
+            <div class="feature">✓ 30 sesiones salud mental</div>
+            <div class="feature">✓ Habitación compartida</div>
+          </div>
+          <button class="btn btn-plan" onclick="selectPlan('A1'); event.stopPropagation();">Consultar Plan A1</button>
+        </div>
+
+        <!-- Plan A2 -->
+        <div class="plan-card plan-a2" onclick="trackPlanView('A2')" data-plan="A2">
+          <div class="plan-header">
+            <h3 class="plan-name">Plan A2</h3>
+            <div class="plan-badge">Recomendado</div>
+          </div>
+          <div class="plan-features">
+            <div class="feature">✓ Todo lo de A1 +</div>
+            <div class="feature">✓ Habitación individual</div>
+            <div class="feature">✓ Prótesis dental con reintegro</div>
+            <div class="feature">✓ Cirugía refractiva 50%</div>
+            <div class="feature">✓ Hospital Austral incluido</div>
+          </div>
+          <button class="btn btn-plan" onclick="selectPlan('A2'); event.stopPropagation();">Consultar Plan A2</button>
+        </div>
+
+        <!-- Plan A4 -->
+        <div class="plan-card plan-a4" onclick="trackPlanView('A4')" data-plan="A4">
+          <div class="plan-header">
+            <h3 class="plan-name">Plan A4</h3>
+            <div class="plan-badge">Premium</div>
+          </div>
+          <div class="plan-features">
+            <div class="feature">✓ Todo lo de A2 +</div>
+            <div class="feature">✓ 40 sesiones kinesiología/año</div>
+            <div class="feature">✓ Prótesis dental 100%</div>
+            <div class="feature">✓ Cirugía refractiva 100%</div>
+            <div class="feature">✓ 8 sesiones flebología</div>
+          </div>
+          <button class="btn btn-plan" onclick="selectPlan('A4'); event.stopPropagation();">Consultar Plan A4</button>
+        </div>
+
+        <!-- Plan A5 -->
+        <div class="plan-card plan-a5" onclick="trackPlanView('A5')" data-plan="A5">
+          <div class="plan-header">
+            <h3 class="plan-name">Plan A5</h3>
+            <div class="plan-badge">Elite</div>
+          </div>
+          <div class="plan-features">
+            <div class="feature">✓ Todo lo de A4 +</div>
+            <div class="feature">✓ 50% desc. medicamentos</div>
+            <div class="feature">✓ Implantes dentales</div>
+            <div class="feature">✓ Cirugía estética (1 cada 2 años)</div>
+            <div class="feature">✓ Chequeo médico anual</div>
+          </div>
+          <button class="btn btn-plan" onclick="selectPlan('A5'); event.stopPropagation();">Consultar Plan A5</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGMENTACIÓN SECTION -->
+  <section class="segmentacion">
+    <div class="container">
+      <h2 class="section-title">Un plan que se adapta a tus necesidades</h2>
+      <div class="segmentos-grid">
+
+        <div class="segmento-card">
+          <div class="segmento-icon">👤</div>
+          <h3>Particulares</h3>
+          <p>La mejor relación precio-calidad para vos y tu familia</p>
+        </div>
+
+        <div class="segmento-card">
+          <div class="segmento-icon">📋</div>
+          <h3>Monotributistas</h3>
+          <p>Derivá tus aportes y optimizá tu inversión en salud</p>
+        </div>
+
+        <div class="segmento-card">
+          <div class="segmento-icon">💼</div>
+          <h3>Relación de Dependencia</h3>
+          <p>Aportes derivables para empleados en blanco</p>
+        </div>
+
+        <div class="segmento-card">
+          <div class="segmento-icon">🏢</div>
+          <h3>Empresas</h3>
+          <p>Planes corporativos con cotización especial</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-regulatory">
+          Superintendencia de Servicios de Salud - órgano de Control de Obras Sociales y Entidades de Medicina Privada -
+          <a href="tel:08002227583">0800 222 SALUD (72583)</a> |
+          <a href="https://www.argentina.gob.ar/sssalud" target="_blank" rel="noopener">www.argentina.gob.ar/sssalud</a>
+        </p>
+        <p class="footer-disclaimer">
+          Asesor independiente – Información no contractual
+        </p>
+        <p class="footer-copyright">
+          © 2026 Prevención Salud. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5491139190033?text=Hola!%20Quiero%20consultar%20sobre%20los%20planes%20de%20Prevención%20Salud"
+     class="whatsapp-float"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Contactar por WhatsApp"
+     onclick="trackCTA('whatsapp_float')">
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <path fill="currentColor" d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.247 1.405 1.405-5.235-0.32-0.533c-1.331-2.217-2.033-4.73-2.033-7.273 0-7.51 6.11-13.62 13.62-13.62s13.62 6.11 13.62 13.62-6.11 13.62-13.62 13.62zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.892 1.123-1.094 1.347c-0.201 0.224-0.402 0.251-0.748 0.076-0.346-0.174-1.461-0.539-2.785-1.722-1.031-0.922-1.727-2.058-1.929-2.404s-0.022-0.535 0.152-0.708c0.156-0.156 0.346-0.402 0.518-0.603 0.174-0.201 0.231-0.346 0.346-0.571 0.117-0.224 0.058-0.427-0.028-0.603s-0.776-1.87-1.063-2.565c-0.28-0.672-0.56-0.58-0.776-0.591-0.201-0.010-0.428-0.012-0.656-0.012s-0.603 0.087-0.92 0.427c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.224 2.425 3.732 5.872 5.234 0.821 0.354 1.462 0.566 1.962 0.724 0.825 0.262 1.577 0.225 2.168 0.137 0.664-0.099 2.049-0.835 2.335-1.642 0.288-0.807 0.288-1.501 0.201-1.642-0.086-0.14-0.316-0.224-0.662-0.398z"/>
+    </svg>
+  </a>
+
+  <!-- Scripts -->
+  <script src="js/analytics.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/forms.js"></script>
+
+  <!-- Script para manejo de tabs -->
+  <script>
+    function switchTab(tabName) {
+      // Ocultar todos los contenidos y remover active de tabs
+      document.querySelectorAll('.tab-content').forEach(function(content) {
+        content.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      // Mostrar el contenido seleccionado y activar el tab
+      const selectedForm = document.getElementById('form-' + tabName);
+      const selectedBtn = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+
+      if (selectedForm) {
+        selectedForm.classList.add('active');
+      }
+      if (selectedBtn) {
+        selectedBtn.classList.add('active');
+      }
+
+      // Track tab change
+      if (typeof gtag === 'function') {
+        gtag('event', 'tab_switch', {
+          'event_category': 'forms',
+          'event_label': tabName,
+          'tab_name': tabName
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
