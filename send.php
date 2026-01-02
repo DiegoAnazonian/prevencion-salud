@@ -5,7 +5,9 @@
  */
 
 require_once 'config.php';
+require_once 'logger.php';
 
+logInfo("Llego solicitud de form");
 // Headers para JSON response
 header('Content-Type: application/json; charset=utf-8');
 
@@ -117,7 +119,6 @@ DATOS PERSONALES:
 • Teléfono: $telefono
 • Edad: $edad años
 • Perfil: " . ucfirst(str_replace('_', ' ', $perfil)) . "
-• Plan de interés: $plan
 
 ========================================
 Este email fue enviado desde el formulario web

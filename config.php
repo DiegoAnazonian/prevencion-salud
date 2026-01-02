@@ -5,8 +5,8 @@
  */
 
 // Configuración de Email
-define('EMAIL_TO', 'difabioantonella@gmail.com'); // REEMPLAZAR con email real
-define('EMAIL_FROM', 'noreply@elijosalud.com.ar');
+define('EMAIL_TO', 'info@elijosalud.com.ar'); // REEMPLAZAR con email real
+define('EMAIL_FROM', 'info@elijosalud.com.ar');
 define('EMAIL_FROM_NAME', 'Prevención Salud - Formulario Web');
 
 // Configuración de Respuestas
