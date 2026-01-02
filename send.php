@@ -67,7 +67,6 @@ function processParticularForm() {
     $telefono = sanitizePhone($_POST['telefono'] ?? '');
     $edad = (int)($_POST['edad'] ?? 0);
     $perfil = sanitizeInput($_POST['perfil'] ?? '');
-    $plan = sanitizeInput($_POST['plan'] ?? 'Sin preferencia');
 
     // Array de errores
     $errors = [];
@@ -95,11 +94,6 @@ function processParticularForm() {
     // Validar perfil
     if (!in_array($perfil, $ALLOWED_PROFILES)) {
         $errors[] = 'Perfil inválido';
-    }
-
-    // Validar plan (opcional)
-    if (!empty($plan) && $plan !== 'Sin preferencia' && !in_array($plan, $AVAILABLE_PLANS)) {
-        $errors[] = 'Plan inválido';
     }
 
     // Si hay errores, retornar
