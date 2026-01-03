@@ -35,7 +35,7 @@ $FORM_TYPES = ['particular', 'empresa'];
 
 // Configuración de Seguridad
 define('ENABLE_HONEYPOT', true); // Anti-spam honeypot
-define('MAX_REQUESTS_PER_HOUR', 10); // Rate limiting
+define('MAX_REQUESTS_PER_HOUR', 5); // Rate limiting (reducido a 5 por seguridad)
 define('SESSION_TIMEOUT', 3600); // 1 hora
 
 // Configuración de Debug

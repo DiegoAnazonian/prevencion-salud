@@ -28,11 +28,24 @@ const validators = {
     return '';
   },
 
-  // Validar email
+  // Validar email (regex mejorada)
   email: function(value) {
-    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+    // Regex más estricta que previene emails inválidos
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     if (!emailRegex.test(value)) {
       return 'Por favor ingresá un email válido';
+    }
+    // Validaciones adicionales
+    if (value.length > 254) {
+      return 'El email es demasiado largo';
+    }
+    const parts = value.split('@');
+    if (parts[0].length > 64) {
+      return 'La parte local del email es demasiado larga';
+    }
+    // Prevenir puntos consecutivos
+    if (value.includes('..')) {
+      return 'El email no puede contener puntos consecutivos';
     }
     return '';
   },

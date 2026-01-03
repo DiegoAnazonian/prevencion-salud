@@ -18,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Iniciar sesión para rate limiting
 session_start();
+// Prevenir session fixation
+session_regenerate_id(true);
 
 // ========================================
 // RATE LIMITING
@@ -67,7 +69,14 @@ function processParticularForm() {
     $nombre = sanitizeInput($_POST['nombre'] ?? '');
     $residencia = sanitizeInput($_POST['residencia'] ?? '');
     $telefono = sanitizePhone($_POST['telefono'] ?? '');
-    $edad = (int)($_POST['edad'] ?? 0);
+    // Validar edad antes de convertir
+    $edadRaw = $_POST['edad'] ?? '';
+    if (!is_numeric($edadRaw) || strlen($edadRaw) > 3) {
+        $errors[] = 'Edad inválida';
+        $edad = 0;
+    } else {
+        $edad = (int)$edadRaw;
+    }
     $perfil = sanitizeInput($_POST['perfil'] ?? '');
 
     // Array de errores
@@ -240,6 +249,16 @@ function sanitizeEmail($email) {
 }
 
 /**
+ * Sanitizar header de email (prevenir injection)
+ */
+function sanitizeEmailHeader($header) {
+    // Eliminar caracteres peligrosos que permiten inyección
+    $header = str_replace(["\r", "\n", "%0a", "%0d"], '', $header);
+    $header = trim($header);
+    return $header;
+}
+
+/**
  * Sanitizar teléfono (solo números)
  */
 function sanitizePhone($phone) {
@@ -247,29 +266,44 @@ function sanitizePhone($phone) {
 }
 
 /**
- * Enviar email
+ * Enviar email con protección contra header injection
  */
 function sendEmail($to, $subject, $message, $replyTo = '', $replyToName = '') {
+    // Sanitizar todos los headers para prevenir injection
+    $to = sanitizeEmailHeader($to);
+    $subject = sanitizeEmailHeader($subject);
+    $replyTo = sanitizeEmailHeader($replyTo);
+    $replyToName = sanitizeEmailHeader($replyToName);
+
     $headers = [];
-    $headers[] = 'From: ' . EMAIL_FROM_NAME . ' <' . EMAIL_FROM . '>';
+    $headers[] = 'From: ' . sanitizeEmailHeader(EMAIL_FROM_NAME) . ' <' . sanitizeEmailHeader(EMAIL_FROM) . '>';
     $headers[] = 'MIME-Version: 1.0';
     $headers[] = 'Content-Type: text/plain; charset=UTF-8';
 
-    if (!empty($replyTo)) {
+    if (!empty($replyTo) && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
         $headers[] = 'Reply-To: ' . $replyToName . ' <' . $replyTo . '>';
     }
 
     $headersString = implode("\r\n", $headers);
 
-    return mail($to, $subject, $message, $headersString);
+    $result = @mail($to, $subject, $message, $headersString);
+
+    // Log si falla
+    if (!$result) {
+        logError("Mail failed to send to: $to");
+    }
+
+    return $result;
 }
 
 /**
- * Rate limiting simple
+ * Rate limiting mejorado (sesión + IP)
  */
 function checkRateLimit() {
     $now = time();
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 
+    // Rate limiting por sesión
     if (!isset($_SESSION['form_submissions'])) {
         $_SESSION['form_submissions'] = [];
     }
@@ -282,13 +316,34 @@ function checkRateLimit() {
         }
     );
 
-    // Verificar límite
+    // Verificar límite por sesión
     if (count($_SESSION['form_submissions']) >= MAX_REQUESTS_PER_HOUR) {
+        logError("Rate limit exceeded for session - IP: $ip");
         return false;
     }
 
-    // Agregar timestamp actual
+    // Rate limiting por IP (archivo temporal)
+    $ipFile = sys_get_temp_dir() . '/ratelimit_' . md5($ip) . '.tmp';
+    $ipSubmissions = [];
+
+    if (file_exists($ipFile)) {
+        $ipSubmissions = json_decode(file_get_contents($ipFile), true) ?: [];
+        // Limpiar viejas
+        $ipSubmissions = array_filter($ipSubmissions, function($timestamp) use ($now) {
+            return ($now - $timestamp) < SESSION_TIMEOUT;
+        });
+    }
+
+    // Verificar límite por IP
+    if (count($ipSubmissions) >= MAX_REQUESTS_PER_HOUR) {
+        logError("Rate limit exceeded for IP: $ip");
+        return false;
+    }
+
+    // Agregar timestamps
     $_SESSION['form_submissions'][] = $now;
+    $ipSubmissions[] = $now;
+    file_put_contents($ipFile, json_encode($ipSubmissions));
 
     return true;
 }
@@ -303,7 +358,10 @@ function logSubmission($type, $email) {
     $logDir = dirname($logFile);
 
     if (!file_exists($logDir)) {
-        @mkdir($logDir, 0755, true);
+        if (!mkdir($logDir, 0750, true)) {
+            error_log("Failed to create log directory: $logDir");
+            return;
+        }
     }
 
     $logEntry = sprintf(
@@ -314,33 +372,39 @@ function logSubmission($type, $email) {
         $_SERVER['REMOTE_ADDR'] ?? 'unknown'
     );
 
-    @file_put_contents($logFile, $logEntry, FILE_APPEND);
+    if (!file_put_contents($logFile, $logEntry, FILE_APPEND)) {
+        error_log("Failed to write to log file: $logFile");
+    }
 }
 
 /**
  * Responder con éxito (JSON)
  */
 function respondSuccess($message = 'Operación exitosa') {
+    http_response_code(200);
     echo json_encode([
         'success' => true,
         'message' => $message
     ]);
-    exit;
+    // Forzar salida del script
+    die();
 }
 
 /**
  * Responder con error (JSON)
  */
 function respondError($message = 'Error desconocido', $log = true) {
-    if ($log && DEBUG_MODE) {
-        error_log("Form Error: $message");
+    if ($log) {
+        logError("Form Error: $message - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
     }
 
+    http_response_code(400);
     echo json_encode([
         'success' => false,
         'message' => $message
     ]);
-    exit;
+    // Forzar salida del script
+    die();
 }
 
 ?>

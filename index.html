@@ -53,7 +53,7 @@
   </header>
 
   <!-- HERO SECTION con Formulario -->
-  <section class="hero">
+  <section class="hero" id="contacto">
     <div class="container">
       <div class="hero-content">
 
@@ -75,6 +75,9 @@
             <form id="form-particular" class="tab-content active" action="send.php" method="POST" novalidate>
               <input type="hidden" name="tipo" value="particular">
 
+              <!-- Campo honeypot (anti-spam) - debe permanecer vacío -->
+              <input type="text" name="website" id="website-particular" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+
               <div class="form-group">
                 <label for="nombre">Nombre y Apellido *</label>
                 <input
@@ -84,6 +87,7 @@
                   placeholder="Juan Pérez"
                   required
                   minlength="3"
+                  maxlength="100"
                   data-error="Por favor ingresá tu nombre completo"
                 >
                 <span class="error-message"></span>
@@ -97,6 +101,7 @@
                   name="residencia"
                   placeholder="Localidad"
                   required
+                  maxlength="100"
                   data-error="Por favor ingresá tu localidad"
                 >
                 <span class="error-message"></span>
@@ -110,6 +115,7 @@
                   name="telefono"
                   placeholder="11 1234-5678"
                   required
+                  maxlength="20"
                   data-error="Por favor ingresá un teléfono válido"
                 >
                 <span class="error-message"></span>
@@ -150,6 +156,9 @@
             <form id="form-empresa" class="tab-content" action="send.php" method="POST" novalidate>
               <input type="hidden" name="tipo" value="empresa">
 
+              <!-- Campo honeypot (anti-spam) - debe permanecer vacío -->
+              <input type="text" name="website" id="website-empresa" style="display:none !important; position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+
               <div class="form-group">
                 <label for="empresa">Nombre de la Empresa *</label>
                 <input
@@ -159,6 +168,7 @@
                   placeholder="Mi Empresa S.A."
                   required
                   minlength="3"
+                  maxlength="150"
                   data-error="Por favor ingresá el nombre de la empresa"
                 >
                 <span class="error-message"></span>
@@ -173,6 +183,7 @@
                   placeholder="Juan Pérez"
                   required
                   minlength="3"
+                  maxlength="100"
                   data-error="Por favor ingresá el nombre de contacto"
                 >
                 <span class="error-message"></span>
@@ -186,6 +197,7 @@
                   name="email"
                   placeholder="contacto@empresa.com"
                   required
+                  maxlength="100"
                   data-error="Por favor ingresá un email válido"
                 >
                 <span class="error-message"></span>
@@ -199,6 +211,7 @@
                   name="telefono"
                   placeholder="11 1234-5678"
                   required
+                  maxlength="20"
                   data-error="Por favor ingresá un teléfono válido"
                 >
                 <span class="error-message"></span>
@@ -213,6 +226,7 @@
                   placeholder="10"
                   required
                   min="1"
+                  max="999999"
                   data-error="Por favor ingresá la cantidad de empleados"
                 >
                 <span class="error-message"></span>
@@ -230,11 +244,10 @@
         <div class="hero-text">
           <h1 class="hero-title">Tu salud, nuestra prioridad</h1>
           <p class="hero-subtitle">La mejor cobertura al mejor precio</p>
-          <p class="hero-discount">Encontrá el plan ideal para vos</p>
           <div class="hero-badges">
             <div class="hero-badge hero-badge-primary">
               <span class="badge-icon">✓</span>
-              <span class="badge-text">Cobertura en +20 Sanatorios Premium</span>
+              <span class="badge-text">Encontrá el plan ideal para vos</span>
             </div>
             <div class="hero-badge hero-badge-secondary">
               <span class="badge-icon">🎯</span>
@@ -250,7 +263,7 @@
   <!-- SANATORIOS SECTION con Carrusel -->
   <section id="sanatorios" class="sanatorios">
     <div class="container">
-      <h2 class="section-title">Sanatorios de la Cartilla</h2>
+      <h2 class="section-title">Algunos sanatorios de la cartilla</h2>
       <p class="section-subtitle">Accedé a los mejores centros médicos del país</p>
 
       <div class="carousel-container">
@@ -335,27 +348,27 @@
             <!-- Nuevos sanatorios -->
             <div class="carousel-item" onclick="trackSanatorio('Sanatorio Las Lomas')">
               <div class="sanatorio-card">
-                <img src="images/sanatorios/las-lomas.svg" alt="Sanatorio Las Lomas" class="sanatorio-logo">
+                <img src="images/sanatorios/laslomas.png" alt="Sanatorio Las Lomas" class="sanatorio-logo">
               </div>
             </div>
             <div class="carousel-item" onclick="trackSanatorio('Sanatorio Guemes')">
               <div class="sanatorio-card">
-                <img src="images/sanatorios/guemes.svg" alt="Sanatorio Guemes" class="sanatorio-logo">
+                <img src="images/sanatorios/guemes.png" alt="Sanatorio Guemes" class="sanatorio-logo">
               </div>
             </div>
             <div class="carousel-item" onclick="trackSanatorio('Sanatorio Anchorena')">
               <div class="sanatorio-card">
-                <img src="images/sanatorios/anchorena.svg" alt="Sanatorio Anchorena" class="sanatorio-logo">
+                <img src="images/sanatorios/anchorena.png" alt="Sanatorio Anchorena" class="sanatorio-logo">
               </div>
             </div>
             <div class="carousel-item" onclick="trackSanatorio('Fundación Hospitalaria')">
               <div class="sanatorio-card">
-                <img src="images/sanatorios/fundacion-hospitalaria.svg" alt="Fundación Hospitalaria" class="sanatorio-logo">
+                <img src="images/sanatorios/fundacionhospitalaria.png" alt="Fundación Hospitalaria" class="sanatorio-logo">
               </div>
             </div>
             <div class="carousel-item" onclick="trackSanatorio('Sanatorio San Lucas')">
               <div class="sanatorio-card">
-                <img src="images/sanatorios/san-lucas.svg" alt="Sanatorio San Lucas" class="sanatorio-logo">
+                <img src="images/sanatorios/sanlucas.png" alt="Sanatorio San Lucas" class="sanatorio-logo">
               </div>
             </div>
           </div>
@@ -380,7 +393,7 @@
         <div class="prestacion-card">
           <div class="prestacion-icon">🏨</div>
           <h3>Red de Prestadores más Grande</h3>
-          <p>15+ sanatorios, médicos y centros de diagnóstico</p>
+          <p>Médicos, sanatorios y centros de diagnóstico.</p>
         </div>
 
         <div class="prestacion-card">
@@ -392,7 +405,7 @@
         <div class="prestacion-card">
           <div class="prestacion-icon">🦷</div>
           <h3>Odontología General 100%</h3>
-          <p>Consultas y tratamientos sin límites</p>
+          <p>Consultas y tratamientos</p>
         </div>
 
         <div class="prestacion-card">
@@ -428,11 +441,13 @@
           <div class="plan-features">
             <div class="feature">✓ Cobertura médica sin límites</div>
             <div class="feature">✓ 25 sesiones kinesiología</div>
-            <div class="feature">✓ Odontología general sin límite</div>
+            <div class="feature">✓ Odontología general</div>
             <div class="feature">✓ 30 sesiones salud mental</div>
             <div class="feature">✓ Habitación compartida</div>
           </div>
-          <button class="btn btn-plan" onclick="selectPlan('A1'); event.stopPropagation();">Consultar Plan A1</button>
+          <a href="#contacto">
+            <button class="btn btn-plan">Consultar Plan A1</button>
+          </a>
         </div>
 
         <!-- Plan A2 -->
@@ -446,9 +461,11 @@
             <div class="feature">✓ Habitación individual</div>
             <div class="feature">✓ Prótesis dental con reintegro</div>
             <div class="feature">✓ Cirugía refractiva 50%</div>
-            <div class="feature">✓ Hospital Austral incluido</div>
+            <div class="feature">✓ Lentes de contacto y armazón con reintegro</div>
           </div>
-          <button class="btn btn-plan" onclick="selectPlan('A2'); event.stopPropagation();">Consultar Plan A2</button>
+          <a href="#contacto">
+            <button class="btn btn-plan" onclick="selectPlan('A2'); event.stopPropagation();">Consultar Plan A2</button>
+          </a>
         </div>
 
         <!-- Plan A4 -->
@@ -460,11 +477,13 @@
           <div class="plan-features">
             <div class="feature">✓ Todo lo de A2 +</div>
             <div class="feature">✓ 40 sesiones kinesiología/año</div>
-            <div class="feature">✓ Prótesis dental 100%</div>
+            <div class="feature">✓ Cirugía estética</div>
             <div class="feature">✓ Cirugía refractiva 100%</div>
             <div class="feature">✓ 8 sesiones flebología</div>
           </div>
-          <button class="btn btn-plan" onclick="selectPlan('A4'); event.stopPropagation();">Consultar Plan A4</button>
+          <a href="#contacto">
+            <button class="btn btn-plan" onclick="selectPlan('A4'); event.stopPropagation();">Consultar Plan A4</button>
+          </a>
         </div>
 
         <!-- Plan A5 -->
@@ -480,7 +499,9 @@
             <div class="feature">✓ Cirugía estética (1 cada 2 años)</div>
             <div class="feature">✓ Chequeo médico anual</div>
           </div>
-          <button class="btn btn-plan" onclick="selectPlan('A5'); event.stopPropagation();">Consultar Plan A5</button>
+          <a href="#contacto">
+            <button class="btn btn-plan" onclick="selectPlan('A5'); event.stopPropagation();">Consultar Plan A5</button>
+          </a>
         </div>
 
       </div>
