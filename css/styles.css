@@ -200,6 +200,7 @@ a:hover {
   height: 50px;
   width: auto;
   max-width: 200px;
+  object-fit: contain;
 }
 
 .nav {
@@ -477,8 +478,19 @@ a:hover {
 }
 
 .prestacion-icon {
-  font-size: 48px;
   margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prestacion-icon svg {
+  color: var(--color-primary);
+  transition: var(--transition-base);
+}
+
+.prestacion-card:hover .prestacion-icon svg {
+  transform: scale(1.1);
 }
 
 .prestacion-card h3 {
@@ -641,8 +653,19 @@ a:hover {
 }
 
 .segmento-icon {
-  font-size: 64px;
   margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.segmento-icon svg {
+  color: var(--color-primary);
+  transition: var(--transition-base);
+}
+
+.segmento-card:hover .segmento-icon svg {
+  transform: scale(1.1);
 }
 
 .segmento-card h3 {
